@@ -31,11 +31,25 @@ print(f"Mean Cost (Million $): {cost_mean}")
 
 #Impute missing values in energy Consumption(MWh) with mean
 
-energy_df["Energy comsumption (MWh)"].fillna(ec_mean, inplace=True)
+energy_df["Energy comsumption (MWh)"] = energy_df["Energy comsumption (MWh)"].fillna(ec_mean)
 
 #Impute missing values in cost(Million $) with mean
-energy_df["cost(Million $)"].fillna(cost_mean, inplace=True)
+energy_df["cost(Million $)"] = energy_df["cost(Million $)"].fillna(cost_mean)
 
 print("\nEnergy DataFrame after Imputing Missing Values with Mean:")
 energy_df.head()
 print(energy_df)
+
+#forward data filling
+energy_df_ffill = energy_df.copy()
+energy_df_ffill["Energy comsumption (MWh)"] = energy_df_ffill["Energy comsumption (MWh)"].ffill()
+energy_df_ffill["cost(Million $)"] = energy_df_ffill["cost(Million $)"].ffill()
+print("\nEnergy DataFrame after Forward Fill Imputation:")
+print(energy_df_ffill)
+
+#backward data filling
+energy_df_bfill = energy_df.copy()
+energy_df_bfill["Energy comsumption (MWh)"] = energy_df_bfill["Energy comsumption (MWh)"].bfill()
+energy_df_bfill["cost(Million $)"] = energy_df_bfill["cost(Million $)"].bfill()
+print("\nEnergy DataFrame after Backward Fill Imputation:")
+print(energy_df_bfill)
